@@ -1,0 +1,250 @@
+FORMAT: 1A
+HOST: http://localhost:3000
+
+# CRM WEB v1.0
+CRM WEB é uma API que permite realizar autenticação de usuários, cadastros e visualizar dados através de token JWT.
+
+&nbsp;
+
+# Group CAMPANHAS
+<strong>Um objeto Campanha tem os seguintes atributos:</strong>
+
++ idcampanha (integer) - Campo do tipo inteiro e auto incremento da campanha na tabela.
++ nome (string) - Nome da campanha foi publicada.
++ ativo (integer) - Status da campanha. Obs: ativo = 0 (inativo) e ativo = 1 (ativo).
++ id_integracao (integer) - ID de Integração.
+
+<strong>Recursos relacionados as campanhas na API:</strong>
+&nbsp;
+
+## Lista campanhas ativas [/campaigns]
+### Lista campanhas ativas  [GET]
+
+
++ Request
+    + Headers
+        Authorization  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+
++ Response 200 (application/json)
+    + Headers
+    + Body
+            [
+                {
+                    "idcampanha": 2,
+                    "nome": "CADASTRO DO SITE",
+                    "ativo": "1",
+                    "id_integracao": 4
+                },
+                {
+                    "idcampanha": 3,
+                    "nome": "RECEPTIVO 0800",
+                    "ativo": "1",
+                    "id_integracao": 5
+                }
+            ]
+
+## Lista todas campanhas [/campaigns/all]
+### Lista todas campanhas  [GET]
+
++ Request
+    + Headers
+        Authorization Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+
++ Response 200 (application/json)
+    + Body
+          [
+              {
+                  "idcampanha": 2,
+                  "nome": "ARARAQUARA ALTERADO 12",
+                  "ativo": "0",
+                  "id_integracao": 4
+              },
+              {
+                  "idcampanha": 4,
+                  "nome": "CADASTRO DO SITE",
+                  "ativo": "1",
+                  "id_integracao": 4
+              },
+              {
+                  "idcampanha": 6,
+                  "nome": "RECEPTIVO 0800",
+                  "ativo": "1",
+                  "id_integracao": 5
+              },
+              {
+                  "idcampanha": 8,
+                  "nome": "0800 SMS",
+                  "ativo": "1",
+                  "id_integracao": 3
+              }
+          ]
+
+## Visualizar uma campanha  [/campaigns/{idcampanha}]
+## Visualizar uma campanha  [GET]
+
+Visualize os dados de uma campanha usando seu identificador exclusivo.
+<br/>
+
++ Parameters
+    + idcampanha: 1 (integer) - Identificador único da campanha
+
++ Request
+    + Headers
+        Authorization Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+
+    + Body
+
+            {
+                "nome": "Lorem Ipsum Lorem ipsum",
+                "ativo": 1,
+                "id_integracao": 26
+            }
+
+    + Schema
+
+            {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string",
+                        "required": true
+                    },
+                    "ativo": {
+                        "type": "integer",
+                        "required": true
+                    },
+                    "id_integracao": {
+                        "type": "integer",
+                        "required": true
+                    }
+                }
+            }
+
++ Response 200
+
+
+## Criar nova campanha [/campaigns]
+### Criar nova campanha [POST]
+
+Criar uma nova é preciso um JSON (objeto) contendo os atributos da campnha.
+
++ nome (string) - Nome da Campanha
++ ativo (integer) - 0 para "inativo" e 1 para "ativo"
++ id_integracao (integer) - Número que corresponde o ID da integração
+
++ Request (application/json)
+    + Headers
+        Authorization Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+
+    + Body
+
+            {
+                "nome": "Lorem Ipsum Lorem ipsum",
+                "ativo": 1,
+                "id_integracao": 4
+            }
+
+    + Schema
+
+            {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string",
+                        "required": true
+                    },
+                    "ativo": {
+                        "type": "integer",
+                        "required": true
+                    },
+                    "id_integracao": {
+                        "type": "integer",
+                        "required": true
+                    }
+                }
+            }
+
++ Response 201 (application/json)
+    + Headers
+    + Body
+
+            {
+                "idcampanha": 75
+            }
+
+    + Schema
+
+            {
+                "type": "object",
+                "properties": {
+                    "idcampanha": {
+                        "type": "integer"
+                    }
+                }
+            }
+
++ Response 400 (application/json)
+    + Headers
+    + Body
+
+        { error: 'Validation fails' }
+
+## Atualizar uma campanha [/campaigns/{idcampanha}]
+
+## Atualizar uma campanha [PUT]
+Modifique os dados de uma campanha usando seu identificador exclusivo.
+<br/>
+Você pode editar o `nome`, `ativo` e ` id_integracao`
+
++ Parameters
+    + idcampanha: 1 (integer) - Identificador único da campanha
+
++ Request (application/json)
+    + Headers
+        Authorization Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+
+    + Body
+
+            {
+                "nome": "Lorem Ipsum Lorem ipsum",
+                "ativo": 1,
+                "id_integracao": 26
+            }
+
+    + Schema
+
+            {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string",
+                        "required": true
+                    },
+                    "ativo": {
+                        "type": "integer",
+                        "required": true
+                    },
+                    "id_integracao": {
+                        "type": "integer",
+                        "required": true
+                    }
+                }
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "nome": "Lorem Ipsum Lorem ipsum",
+                "ativo": 1,
+                "id_integracao": 26
+            }
+
+
++ Response 400 (application/json)
+    + Headers
+    + Body
+
+        { error: 'Validation fails' }
+

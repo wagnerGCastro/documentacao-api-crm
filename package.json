@@ -1,0 +1,17 @@
+{
+  "name": "api-crm-web",
+  "version": "1.0.0",
+  "description": "API CRM WEB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "aglio -p 3136 -i src/api.apib --theme-full-width --no-theme-condense -s",
+    "build:dev": "aglio -i src/api.apib --theme-full-width --no-theme-condense -o build/dev/index.html",
+    "build:prod": "aglio -i src/api.apib --theme-full-width --no-theme-condense -o build/prod/index.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aglio": "^2.3.0"
+  }
+}
